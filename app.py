@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request,jsonify,send_from_directory
+
 from database import tasks_collection
 
 app = Flask(__name__)
@@ -6,7 +7,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "Task Management API is Running!"
+    return send_from_directory('frontend', 'index.html')
+@app.route("/<path:path>")
+def frontend_files(path):
+    return send_from_directory('frontend', path)
 
 
 @app.route("/tasks", methods=["GET"])
